@@ -54,11 +54,17 @@ exports.deletePost = async (req, res, next) => {
 
 exports.getAllPosts = async (req, res, next) => {
     try {
-        const result = await prisma.post.findMany();
+        const result = await prisma.post.findMany({
+            include: {
+                author: true,
+            }
+        });
+
         res.json(result)
 
     } catch (error) {
-        res.json({ error: `NO POSTS FOUND` })
+        res.status(500).json({ error: `Could not retrieve posts: ${error.message}` });
+
     }
 }
 

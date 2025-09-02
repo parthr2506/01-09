@@ -27,6 +27,6 @@ model Post {
   slug     String
   title    String
   body     String
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User?  @relation(fields: [authorId], references: [id])
   authorId String @db.ObjectId
 }
